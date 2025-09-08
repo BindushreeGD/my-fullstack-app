@@ -3,7 +3,7 @@ version: "3.8"
 services:
   backend:
     build:
-      context: ./backend
+      context: https://github.com/BindushreeGD/my-fullstack-app.git#main:backend
     ports:
       - "5000:5000"
     depends_on:
@@ -11,7 +11,7 @@ services:
 
   frontend:
     build:
-      context: ./frontend
+      context: https://github.com/BindushreeGD/my-fullstack-app.git#main:frontend
     ports:
       - "3000:80"
     depends_on:
