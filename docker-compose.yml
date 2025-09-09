@@ -1,28 +1,32 @@
-version: "3.8"
-
 services:
-  backend:
-    build:
-      context: https://github.com/BindushreeGD/my-fullstack-app.git#main:backend
-    ports:
-      - "5000:5000"
-    depends_on:
-      - db
-
   frontend:
-    build:
-      context: https://github.com/BindushreeGD/my-fullstack-app.git#main:frontend
+    build: ./frontend
+    container_name: my-frontend
     ports:
       - "3000:80"
     depends_on:
       - backend
 
+  backend:
+    build: ./backend
+    container_name: my-backend
+    ports:
+      - "8000:8000"
+    environment:
+      # - DATABASE_URL=postgresql://myuser:mypassword@db:5432/mydb
+      - FLASK_ENV=development
+    depends_on:
+      - db
+
   db:
     image: postgres:15
+    container_name: my-database
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
       POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
 
