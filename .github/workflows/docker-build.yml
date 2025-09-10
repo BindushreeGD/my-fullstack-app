@@ -1,0 +1,25 @@
+name: Build and Push Docker Images
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+
+      - name: Build and Push Backend
+        run: |
+          docker build -t your-dockerhub-user/myapp-backend:latest ./backend
+          docker push your-dockerhub-user/myapp-backend:latest
+
+      - name: Build and Push Frontend
+        run: |
+          docker build -t your-dockerhub-user/myapp-frontend:latest ./frontend
+          docker push your-dockerhub-user/myapp-frontend:latest

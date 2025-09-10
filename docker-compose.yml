@@ -2,16 +2,14 @@ version: "3.8"
 
 services:
   backend:
-    build:
-      context: ./backend
+    image: your-dockerhub-user/myapp-backend:latest
     ports:
-      - "5000:5000"
+      - "8000:8000"
     depends_on:
       - db
 
   frontend:
-    build:
-      context: ./frontend
+    image: your-dockerhub-user/myapp-frontend:latest
     ports:
       - "3000:80"
     depends_on:
