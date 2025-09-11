@@ -1,6 +1,5 @@
-version: "3.8"
-
 services:
+<<<<<<< HEAD
   backend:
     image: your-dockerhub-user/myapp-backend:latest
     ports:
@@ -10,17 +9,36 @@ services:
 
   frontend:
     image: your-dockerhub-user/myapp-frontend:latest
+=======
+  frontend:
+    build: ./frontend
+    container_name: my-frontend
+>>>>>>> 9027baa7a88aaff63f4fc2a2d04faff5f972836f
     ports:
       - "3000:80"
     depends_on:
       - backend
 
+  backend:
+    build: ./backend
+    container_name: my-backend
+    ports:
+      - "8000:8000"
+    environment:
+      # - DATABASE_URL=postgresql://myuser:mypassword@db:5432/mydb
+      - FLASK_ENV=development
+    depends_on:
+      - db
+
   db:
     image: postgres:15
+    container_name: my-database
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
       POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
 
