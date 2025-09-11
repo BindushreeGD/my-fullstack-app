@@ -1,13 +1,13 @@
 services:
   frontend:
-    image: bindushreegd/my-fullstack-app-frontend:latest
+    image: bindu531/my-fullstack-app-frontend:latest
     ports:
       - "3000:80"
     depends_on:
       - backend
 
   backend:
-    image: bindushreegd/my-fullstack-app-backend:latest
+    image: bindu531/my-fullstack-app-backend:latest
     ports:
       - "8000:8000"
     depends_on:
